@@ -19,6 +19,4 @@ The output for the wallet_api.py should read:
 
 The output for the main.py should read:
 
-`71ae56a25ec8b1e48685359b7012bf0fa8465ad99e7baa2d5be7bca71ba6064a  main.py`
-
-
+`3c514547e52e9e21ff93faef772b7b07d35de5fef7c5b92fbaa23638b93b9420  main.py`
