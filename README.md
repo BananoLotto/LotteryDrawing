@@ -5,9 +5,18 @@ This program is the algorithm used to select winners for the Banano Lottery draw
 ## Checksums
 To ensure integrity of the drawings, I will be running checksums before each drawing of the python scripts so that you can be sure that no files were altered before execution.
 
-If you would like to run a checksum on the files yourself just issue the follow command:
+### Why do I care about the checksums?
+
+If you know the checksum of the original file, you can run a checksum or hashing utility on it. If the resulting checksum matches, you know the file you have is identical.
+
+### How to calculate a checksum on Linux
+If you would like to run a checksum on the files yourself just issue the follow command in a terminal:
 
 `sha256sum file_name`
+
+### How to calculate a checksum on Windows
+Best I can do is a link:
+https://www.shellhacks.com/windows-md5-sha256-checksum-built-in-utility/
 
 ### wallet_api.py Checksum
 
@@ -20,5 +29,9 @@ The output for the wallet_api.py should read:
 The output for the main.py should read:
 
 `71ae56a25ec8b1e48685359b7012bf0fa8465ad99e7baa2d5be7bca71ba6064a  main.py`
+
+## Would you like to help?
+
+I will admit, I am very new to python and I'm not the best python guy. If you have any expertise and would like to clean some things up, I will take all the help I can get. Please be gentle on the code reviews boss. The main reason the code was not published at launch is because having experienced people read my code feels like being seen naked. I am willing to bear the shame if it brings confidence to the game.
 
 
