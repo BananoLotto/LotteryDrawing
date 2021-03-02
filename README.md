@@ -33,11 +33,14 @@ The output for the main.py should read:
 
 
 ## Would you like to help?
-### Fat Wallet Monkeys
-If you like the project, you can donate some 'nanners.
-ban_3rcdw8renb7de74wu7jcrqagi15pfn66tjpqr6uzngcb6nuufqacx5ieggot
+### Designer Monkeys
+I could use some help with a logo. I do not have an eye for design.
 
 ### Code Monkeys
 I will admit, I am very new to python and I'm not the best python guy. If you have any expertise and would like to clean some things up, I will take all the help I can get. Please be gentle on the code reviews boss. The main reason the code was not published at launch is because having experienced people read my code feels like being seen naked. I am willing to bear the shame if it brings confidence to the game.
+
+### Fat Wallet Monkeys
+If you like the project, you can donate some 'nanners.
+ban_3rcdw8renb7de74wu7jcrqagi15pfn66tjpqr6uzngcb6nuufqacx5ieggot
 
 
