@@ -29,7 +29,7 @@ The output for the main.py should read:
 
 ## Monkey Business
 
-![alt text](https://pbs.twimg.com/profile_images/1366434286904225792/mDWj6Vsk_400x400.jpg)
+<img src="https://pbs.twimg.com/profile_images/1366434286904225792/mDWj6Vsk_400x400.jpg" width=200>
 
 
 ## Would you like to help?
