@@ -92,13 +92,13 @@ def main():
     print('Valid Entry Balance: ' + str(valid_balance))
     entries = get_entries(settings.ban_account,bal, valid_balance)
     random.shuffle(entries) # shuffle the entries
-    first = random.randint(1,bal)
+    first = random.randint(1,valid_balance)
     second = first
     while second == first: # prevents redrawing same ticket
-        second = random.randint(1,bal)
+        second = random.randint(1,valid_balance)
     third = second
     while third == second or third == first: #prevents drawing same ticket
-        third = random.randint(1,bal)
+        third = random.randint(1,valid_balance)
     winners.append(pick_winner(entries, first)) # first place
     winners.append(pick_winner(entries, second)) #second place
     winners.append(pick_winner(entries, third)) # third place
