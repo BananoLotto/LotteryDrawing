@@ -1,4 +1,4 @@
-# :monkey: :banana: :monkey: :banana: :monkey: LotteryDrawing :monkey: :banana: :monkey: :banana: :monkey:
+# :monkey: :banana: :monkey: :banana: :monkey: Banano Lotto :monkey: :banana: :monkey: :banana: :monkey:
 
 This program is the algorithm used to select winners for the Banano Lottery drawings. I'm providing the algorithm to ensure transparency for all entrants.
 
