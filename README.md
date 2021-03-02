@@ -42,6 +42,3 @@ I will admit, I am very new to python and I'm not the best python guy. If you ha
 ### Fat Wallet Monkeys
 If you like the project, you can donate some 'nanners.
 ban_3rcdw8renb7de74wu7jcrqagi15pfn66tjpqr6uzngcb6nuufqacx5ieggot
-
-
->>>>>>> 7d9125c1ac1a1c4752ed68da75a2585ceb855b92
