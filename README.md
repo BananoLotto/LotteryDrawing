@@ -25,7 +25,7 @@ The output for the wallet_api.py should read:
 ### main.py Checksum
 The output for the main.py should read:
 
-`3c514547e52e9e21ff93faef772b7b07d35de5fef7c5b92fbaa23638b93b9420  main.py`
+`7c9fcf15b52b12e4d2084081499900116c1992400268d13782db384ac9df3704  main.py`
 
 ## Monkey Business
 
