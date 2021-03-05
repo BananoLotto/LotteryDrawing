@@ -112,7 +112,7 @@ def main():
     print("Second Place: " + str(second) +" winner: " + winners[1] + " prize: " + str(second_prize))
     print("Third Place: " +str(third)+ " winner: "+ winners[2] + " prize: " + str(third_prize))
     print("Code Monkey Tax: " + str(round(donation,10)))
-    send_payout(settings.donation_address, banano_to_raw(round(donation,10)))
+    send_payout(settings.donation_account, banano_to_raw(round(donation,10)))
     send_payout(winners[2], banano_to_raw(third_prize))
     send_payout(winners[1], banano_to_raw(second_prize))
     send_payout(winners[0], banano_to_raw(first_prize))
