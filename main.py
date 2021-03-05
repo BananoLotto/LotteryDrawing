@@ -26,7 +26,7 @@ def get_valid_entries(address, balance):
     response = wallet_api.get_transactions(address, -1)
     account = response.json()
     for tx in account.get('history'):
-        if(tx.get('type') == "receive"):
+        if(tx.get('type') == "receive" and tx.get('account') != settings.donation_account):
             amt = raw_to_banano(int(tx.get('amount')))
             receive_amt = receive_amt + amt
             if(receive_amt >= balance):
@@ -112,7 +112,6 @@ def main():
     print("Second Place: " + str(second) +" winner: " + winners[1] + " prize: " + str(second_prize))
     print("Third Place: " +str(third)+ " winner: "+ winners[2] + " prize: " + str(third_prize))
     print("Code Monkey Tax: " + str(round(donation,10)))
-
     send_payout(settings.donation_address, banano_to_raw(round(donation,10)))
     send_payout(winners[2], banano_to_raw(third_prize))
     send_payout(winners[1], banano_to_raw(second_prize))
