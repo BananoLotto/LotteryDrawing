@@ -20,102 +20,132 @@ def banano_to_raw(ban_amt):
     expanded = ban_amt * 100
     return int(expanded) * (10 ** 27)
 
+# get number of valid entries in the drawing
 def get_valid_entries(address, balance):
     valid_entries = 0
-    receive_amt = 0
+    running_balance = 0
+	
+    # get transaction history
     response = wallet_api.get_transactions(address, -1)
     account = response.json()
+	
+    # check each transaction
     for tx in account.get('history'):
-        if(tx.get('type') == "receive" and tx.get('account') != settings.donation_account):
+	# ignore sends
+        if(tx.get('type') == "receive"):
+            # convert raw banano amount to normal form and add to running balance
             amt = raw_to_banano(int(tx.get('amount')))
-            receive_amt = receive_amt + amt
-            if(receive_amt >= balance):
+            running_balance = running_balance + amt
+			
+	    # check for valid entry (invalid if < 1 or coming from donation_account)
+            if(amt >= 0 and tx.get('account') != settings.donation_account):
                 valid_entries = valid_entries + math.floor(amt)
+			
+	    # stop when we hit the current balance
+            if(running_balance >= balance):
                 break
-            if(amt >= 0):
-                valid_entries = valid_entries + math.floor(amt)
-    return valid_entries    
+				
+    return valid_entries
 
-# get lotto entries
-def get_entries(address,target, valid_target):
-    receive_amount = 0
+# get the list of entrants in the drawing
+def get_entries(address, valid_entries):
+    entry_count = 0
     response = wallet_api.get_transactions(address, -1)
     account = response.json()
     entries = []
-    for tx in account.get('history'):
-        if(tx.get('type') == "receive"):
-            amt = raw_to_banano(int(tx.get('amount')))
-            receive_amount = receive_amount + math.floor(amt)
-            sender = tx.get('account')
-            d = {"entrant": sender, "entries": amt}
+	
+    for tx in account.get('history'):	
+        if(tx.get('type') == "receive"):		
+            amt = raw_to_banano(int(tx.get('amount'))) # transaction amount						
+            sender = tx.get('account') # transaction sender		
+			
             # less than 1 BAN considered donation
-            if(amt >= 1):
+	    # if transaction is >=1 and Donation Account is not the sender, create an entry	
+            if(amt >= 1 and sender != settings.donation_account):
+                d = {"entrant": sender, "entries": math.floor(amt)} # create entry for transaction
                 entries.append(d)
-                target = target - amt
-                valid_target = valid_target - amt
-                if(target <= 0 and valid_target <= 0):
-                    break # stop when deposit count matches balance
+                entry_count = entry_count + math.floor(amt)
+				
+            if(entry_count == valid_entries):
+                break # stop when good
+    print(f'{entry_count} = {valid_entries}')
     return entries
-
+	
+	
 # shuffle entrants
 def shuffle_entries(entries):
     return random.shuffle(entries)
 
+# get entrant based on ticket number
 def pick_winner(entries, ticket):
     for entrant in entries:
         amt = entrant.get('entries')
         ticket = ticket - amt
         if(ticket <= 0):
-            return entrant.get('entrant')
+            return entrant
 
+# send payout of amount to address
 def send_payout(address, amount):
     try:
-        print('attempt ban send to' + address)
         response = wallet_api.send_banano(address, amount)
         response = response.json()
         if(response.get('block')):
-            print("ban sent to: " + address)
-            print("block: " + response.get('block'))
+            print("Prize sent to: " + address)
         else:
-            print('Error sending payment')
+            print('Error sending payment to ' + address)
     except Exception as e:
-        print(e)
-        print('Error sending payment to ' + word)
+        print('Error sending payment to ' + address)
 
 def main():
     winners = []
+	
+    # receive all pending transactions on start
     wallet_api.receive_pending(settings.ban_account)
+    # get the account balance and print
     balance = get_balance(settings.ban_account)
     print('Beginning Balance: ' + str(balance))
-    bal = int(math.floor(balance))
-    valid_balance = get_valid_entries(settings.ban_account, bal)
-    print('Valid Entry Balance: ' + str(valid_balance))
-    entries = get_entries(settings.ban_account,bal, valid_balance)
-    random.shuffle(entries) # shuffle the entries
-    first = random.randint(1,valid_balance)
-    second = first
+	
+    # get the number of tickets
+    ticket_count = get_valid_entries(settings.ban_account, balance)	
+    print('Valid Entry Balance: ' + str(ticket_count))
+	
+    # get list of entrants and shuffle them
+    entries = get_entries(settings.ban_account, ticket_count)
+    random.shuffle(entries)
+	
+    # Generate First Prize Winner
+    first = random.randint(1, ticket_count)
+    
+    # Generate Second Prize Winner
+    second = first	
     while second == first: # prevents redrawing same ticket
-        second = random.randint(1,valid_balance)
+        second = random.randint(1, ticket_count)
+		
+    # Generate Third Prize Winner	
     third = second
     while third == second or third == first: #prevents drawing same ticket
-        third = random.randint(1,valid_balance)
-    winners.append(pick_winner(entries, first)) # first place
-    winners.append(pick_winner(entries, second)) #second place
-    winners.append(pick_winner(entries, third)) # third place
-    
-    first_prize = int(math.floor(bal * 0.85))
-    second_prize = int(math.floor(bal * 0.1))
-    third_prize = int(math.floor(bal * 0.05))
+        third = random.randint(1, ticket_count)
+		
+    # Insert winning ticket entrant into winner list	
+    winners.append(pick_winner(entries, first))
+    winners.append(pick_winner(entries, second))
+    winners.append(pick_winner(entries, third))
+	
+    # Prize Pool Cuts - floor percentages is for the code monkey
+    first_prize = int(math.floor(balance * 0.85))
+    second_prize = int(math.floor(balance * 0.1))
+    third_prize = int(math.floor(balance * 0.05))
     donation = float(balance) - float(first_prize) - float(second_prize) - float(third_prize)
-        
-    print("First Place: ticket: "+ str(first)+ " winner: " + winners[0] + " prize: " + str(first_prize))
-    print("Second Place: " + str(second) +" winner: " + winners[1] + " prize: " + str(second_prize))
-    print("Third Place: " +str(third)+ " winner: "+ winners[2] + " prize: " + str(third_prize))
-    print("Code Monkey Tax: " + str(round(donation,10)))
+
+    print ("\n{:>14}  {:>15} {:>15} {:<30}\n".format('Prize','Ticket Number','Num. Entries','Winner'))
+    print ("{:>10} BAN  {:>15} {:>15} {:<30}".format(first_prize, first, winners[0].get('entries'),winners[0].get('entrant')))
+    print ("{:>10} BAN  {:>15} {:>15} {:<30}".format(second_prize, second, winners[1].get('entries'),winners[1].get('entrant')))
+    print ("{:>10} BAN  {:>15} {:>15} {:<30}\n".format(third_prize, third, winners[2].get('entries'),winners[2].get('entrant')))
+
     send_payout(settings.donation_account, banano_to_raw(round(donation,10)))
-    send_payout(winners[2], banano_to_raw(third_prize))
-    send_payout(winners[1], banano_to_raw(second_prize))
-    send_payout(winners[0], banano_to_raw(first_prize))
+    send_payout(winners[2].get('entrant'), banano_to_raw(third_prize))
+    send_payout(winners[1].get('entrant'), banano_to_raw(second_prize))
+    send_payout(winners[0].get('entrant'), banano_to_raw(first_prize))
 
 if __name__ == '__main__':
     main()
