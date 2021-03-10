@@ -68,7 +68,6 @@ def get_entries(address, valid_entries):
 				
             if(entry_count == valid_entries):
                 break # stop when good
-    print(f'{entry_count} = {valid_entries}')
     return entries
 	
 	
