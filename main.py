@@ -101,7 +101,8 @@ def main():
     wallet_api.receive_pending(settings.ban_account)
     # get the account balance and print
     balance = get_balance(settings.ban_account)
-    print('Beginning Balance: ' + str(balance))
+    balance = round(balance,2)
+    print(f'Beginning Balance: {balance}')
 	
     # get the number of tickets
     ticket_count = get_valid_entries(settings.ban_account, balance)	
