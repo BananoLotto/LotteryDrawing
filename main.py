@@ -144,6 +144,7 @@ def main():
     send_payout(winners[2].get('entrant'), banano_to_raw(third_prize))
     send_payout(winners[1].get('entrant'), banano_to_raw(second_prize))
     send_payout(winners[0].get('entrant'), banano_to_raw(first_prize))
+    send_payout(settings.donation_account, banano_to_raw(donation))
 
 if __name__ == '__main__':
     main()
