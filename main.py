@@ -141,7 +141,6 @@ def main():
     print ("{:>10} BAN  {:>15} {:>15} {:<30}".format(second_prize, second, winners[1].get('entries'),winners[1].get('entrant')))
     print ("{:>10} BAN  {:>15} {:>15} {:<30}\n".format(third_prize, third, winners[2].get('entries'),winners[2].get('entrant')))
 
-    send_payout(settings.donation_account, banano_to_raw(round(donation,10)))
     send_payout(winners[2].get('entrant'), banano_to_raw(third_prize))
     send_payout(winners[1].get('entrant'), banano_to_raw(second_prize))
     send_payout(winners[0].get('entrant'), banano_to_raw(first_prize))
