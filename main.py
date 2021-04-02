@@ -41,7 +41,7 @@ def get_valid_entries(address, balance):
             if(amt >= 0 and tx.get('account') != settings.donation_account):
                 valid_entries = valid_entries + math.floor(amt)		
 	    # stop when we hit the current balance
-            if(round(running_balance,10) >= balance):
+            if(round(running_balance,2) >= balance):
                 break
 				
     return valid_entries
