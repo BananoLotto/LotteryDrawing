@@ -20,12 +20,12 @@ https://www.shellhacks.com/windows-md5-sha256-checksum-built-in-utility/
 ### wallet_api.py Checksum
 The output for the wallet_api.py should read:
 
-`86a1d75b1d6956445c087b5ac858f89ac2318c06e18a599e6591467f4a784686  wallet_api.py`
+`9e57f789c0867b4d26e1f15a0671c8b7d3f9d488aa26cb856608a27fe79beb2f  wallet_api.py`
 
 ### main.py Checksum
 The output for the main.py should read:
 
-`cbbd7dbf18d45703e6cf63cff391f8678b1ab76328f40dc58ccd85e1a185389e  main.py`
+`6126e50932940b96817efff1a776354170f0910b5036250335dba435c4fa2c6d  main.py`
 
 ## Monkey Business
 
