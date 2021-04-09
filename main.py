@@ -134,7 +134,7 @@ def main():
     first_prize = int(math.floor(balance * 0.85))
     second_prize = int(math.floor(balance * 0.1))
     third_prize = int(math.floor(balance * 0.05))
-    donation = float(balance) - float(first_prize) - float(second_prize) - float(third_prize)
+    donation = float(balance) - float(first_prize) - float(second_prize) - float(third_prize) - 0.01
 
     print ("\n{:>14}  {:>15} {:>15} {:<30}\n".format('Prize','Ticket Number','Num. Entries','Winner'))
     print ("{:>10} BAN  {:>15} {:>15} {:<30}".format(first_prize, first, winners[0].get('entries'),winners[0].get('entrant')))
@@ -144,7 +144,6 @@ def main():
     send_payout(winners[2].get('entrant'), banano_to_raw(third_prize))
     send_payout(winners[1].get('entrant'), banano_to_raw(second_prize))
     send_payout(winners[0].get('entrant'), banano_to_raw(first_prize))
-    send_payout(settings.donation_account, banano_to_raw(donation))
 
 if __name__ == '__main__':
     main()
