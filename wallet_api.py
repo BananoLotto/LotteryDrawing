@@ -25,7 +25,8 @@ def get_transactions(account, count):
         "account": account,
         "count": count
     }
-    return requests.get(settings.public_rpc, d)
+    data = json.dumps(d)
+    return requests.post(settings.wallet_api, data)
 
 def send_banano(address, amount):
     d = {
