@@ -131,9 +131,9 @@ def main():
     winners.append(pick_winner(entries, third))
 	
     # Prize Pool Cuts - floor percentages is for the code monkey
-    first_prize = int(math.floor(balance * 0.85))
-    second_prize = int(math.floor(balance * 0.1))
-    third_prize = int(math.floor(balance * 0.05))
+    first_prize = int(math.floor(balance * 0.69))
+    second_prize = int(math.floor(balance * 0.19))
+    third_prize = int(math.floor(balance * 0.12))
     donation = float(balance) - float(first_prize) - float(second_prize) - float(third_prize) - 0.01
 
     print ("\n{:>14}  {:>15} {:>15} {:<30}\n".format('Prize','Ticket Number','Num. Entries','Winner'))
