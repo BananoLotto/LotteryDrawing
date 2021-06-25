@@ -27,6 +27,9 @@ The output for the main.py should read:
 
 `3124f7e0d942969df743f992ee7dfa7f817937b1199a93503a7444cdc9c76820  main.py`
 
+### specialDrawing.py Checksum
+`4fd469f0b39990097e8feb044c3a9e85c32278f86c90a4c5f688cdcf82780a5a  specialDrawing.py`
+
 ## Monkey Business
 
 <img src="https://pbs.twimg.com/profile_images/1366434286904225792/mDWj6Vsk_400x400.jpg" width=200>
