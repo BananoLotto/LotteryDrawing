@@ -83,7 +83,7 @@ def get_special_entries(address, valid_entries):
             # less than 1 BAN considered donation
             # if transaction is >=1 and Donation Account is not the sender, create an entry
             if(amt >= 1 and sender != settings.donation_account):
-                if(amt >= 19 and sender not in entries):
+                if(amt >= 100 and sender not in entries):
                     entries.append(sender)
                 entry_count = entry_count + math.floor(amt)
 
